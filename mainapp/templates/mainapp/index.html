@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Upload Excel File</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Upload">
+  </form>
+
+  {% if success_message %}
+    <p>{{ success_message }}</p>
+
+    <h3>Column Names</h3>
+    <select>
+      {% for column_name in column_names %}
+        <option>{{ column_name }}</option>
+        <br/>
+      {% endfor %}
+    </select>
+  {% endif %}
+
+
+  <button type="button" onclick="checkUploadFile()">Check uploaded <i class="fas fa-dribbble-square    "></i></button>
+
+  <div id="upload-file-info">
+    
+  </div>
+
+  <script>
+    function checkUploadFile() {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var fileInfoContainer = document.getElementById('upload-file-info');
+                    var fileData = JSON.parse(xhr.responseText);
+                    var fileHtml = '';
+
+                    if (fileData.length > 0) {
+                        fileHtml += '<h2>Uploaded Files</h2>';
+                        fileHtml += '<ul>';
+                        for (var i = 0; i < fileData.length; i++) {
+                            var file = fileData[i].file_url;
+                            fileHtml += '<li>';
+                            fileHtml += 'File Name: <a href="' + fileData[i].file_url +'">' + fileData[i].file_name + '</a><br>';
+                            fileHtml += 'Uploaded At: ' + fileData[i].uploaded_at + '<br><br>';
+                            // Add additional file information here if needed
+                            fileHtml += '</li>';
+                        }
+                        fileHtml += '</ul>';
+                    } else {
+                        fileHtml += '<p>No uploaded files yet.</p>';
+                    }
+
+                    fileInfoContainer.innerHTML = fileHtml;
+                } else {
+                    console.error('Error occurred while checking uploaded file.');
+                }
+            }
+        };
+        xhr.open('GET', '{% url "mainapp:check_upload_file" %}', true);
+        xhr.send();
+    }
+</script>
+
+
+{% endblock %}
+
+  
+  
+  
