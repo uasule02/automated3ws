@@ -1,0 +1,36 @@
+.container {
+    display: flexbox;
+    width: 100%;
+  }
+  .nav-container {
+    width: 100%;
+    padding: 20px;
+
+  }
+  
+  .upload-container,
+  .file-list-container {
+    width: 50%;
+    border-radius: 15;
+    border-width: 1;
+    border-color: black;
+    border: 2;
+  }
+  
+  .upload-container {
+    padding: 20px;
+  }
+  
+  .file-list-container {
+    padding: 20px;
+  }
+  
+  .file-list-container ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .file-list-container li {
+    margin-bottom: 10px;
+  }
+  
