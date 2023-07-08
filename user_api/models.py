@@ -4,17 +4,6 @@ from django.contrib.auth import get_user_model
 from .validations import FileExtensionValidator
 
 
-def upload_to(instance, filename):
-    return 'images/{filename}'.format(filename=filename)
-
-class MyModel(models.Model):
-    creator = models.ForeignKey(
-        get_user_model(), on_delete=models.CASCADE, related_name="listings")
-    title = models.CharField(
-        max_length=80, blank=False, null=False)
-    description = models.TextField()
-    image_url = models.ImageField(upload_to=upload_to, blank=True, null=True)
-
 class AppUserManager(BaseUserManager):
     def create_user(self, email, username, password=None):
         if not email:

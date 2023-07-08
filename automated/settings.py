@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'mainapp',
     'rest_framework',
     'user_api',
+
 ]
 
 MIDDLEWARE = [
@@ -97,7 +98,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
-        'USER': 'root1',
+        'USER': 'root',
         'PASSWORD': 'toor1234',
         'HOST': 'localhost',
         'PORT': '5432',
